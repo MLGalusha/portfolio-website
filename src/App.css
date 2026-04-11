@@ -41,6 +41,10 @@
   color: var(--text-primary);
 }
 
+.nav a.active {
+  color: var(--text-primary);
+}
+
 .header-links {
   display: none;
 }
@@ -201,6 +205,7 @@
 .section {
   padding: 4rem 0;
   border-bottom: 1px solid var(--border);
+  scroll-margin-top: 60px;
 }
 
 .section-header {

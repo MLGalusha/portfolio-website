@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from "react";
+import { useState, useEffect, type FormEvent } from "react";
 import "./App.css";
 
 const projects = [
@@ -101,6 +101,23 @@ const FORM_ENDPOINT = "https://formspree.io/f/xojpgjpe";
 function App() {
   const [formStatus, setFormStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [emailCopied, setEmailCopied] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
+
+  useEffect(() => {
+    const sections = document.querySelectorAll(".section");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        }
+      },
+      { rootMargin: "-20% 0px -70% 0px" }
+    );
+    sections.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
+  }, []);
 
   function copyEmail() {
     navigator.clipboard.writeText(EMAIL);
@@ -134,10 +151,10 @@ function App() {
       <header className="header">
         <a href="/" className="logo">Mason Galusha</a>
         <nav className="nav">
-          <a href="#projects">Projects</a>
-          <a href="#skills">Skills</a>
-          <a href="#about">About</a>
-          <a href="#contact">Contact</a>
+          <a href="#projects" className={activeSection === "projects" ? "active" : ""}>Projects</a>
+          <a href="#skills" className={activeSection === "skills" ? "active" : ""}>Skills</a>
+          <a href="#about" className={activeSection === "about" ? "active" : ""}>About</a>
+          <a href="#contact" className={activeSection === "contact" ? "active" : ""}>Contact</a>
         </nav>
         <div className="header-links">
           <a href="https://github.com/MLGalusha" target="_blank" rel="noreferrer" className="header-link-text">GitHub</a>
