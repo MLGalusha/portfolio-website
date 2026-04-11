@@ -6,21 +6,32 @@ const projects = [
     name: "Voices That Remain",
     tag: "Shipped Product",
     description:
-      "A live digital archive for historical personal letters. AI vision transcribes handwritten images, extracts metadata, identifies senders and recipients, resolves entities across letters, and generates bios and collection descriptions. Every step goes through human review before publishing.",
+      "A production digital archive for historical family letters. Public archive with search, filtering, entity pages, and SEO. 14-page admin system with pipeline processing controls, letter review editor, cost and usage dashboard, notification inbox with real-time SSE, content editor, and collection management. Built to grow continuously as new letters are scanned.",
     detail:
-      "Solo built, full stack TypeScript. Multi stage AI pipeline (transcription, metadata extraction, entity resolution, bio generation) with human in the loop gates at each step. 20 DB tables, deployed on GCP.",
+      "Multi-stage AI pipeline on the OpenAI API: GPT-5.4 Vision transcription, structured metadata extraction with Zod validation, entity resolution via tool calling, and cost-tiered model selection. Human verification gate between stages. React 19, Express 5, 20 Postgres tables (Drizzle ORM), 46 Playwright E2E tests, Cloud Build CI/CD. Deployed on GCP Cloud Run.",
     links: [
       { label: "Live Site", href: "https://voicesthatremain.com" },
       { label: "GitHub", href: "https://github.com/MLGalusha/VoicesThatRemain" },
     ],
   },
   {
+    name: "SonicGen",
+    tag: "Audio DSP / Hand Written",
+    description:
+      "Audio ingestion and speaker identification pipeline. Point it at a YouTube channel and it pulls every video, downloads the audio, transcribes with speaker diarization (AssemblyAI), and lets you label who's speaking in seconds. Once labeled, voice embeddings (SpeechBrain ECAPA) get stored in Pinecone so the system automatically identifies those speakers in future videos. Written entirely by hand, no coding agents.",
+    detail:
+      "Built a Shazam-style fingerprint dedup engine to catch duplicate clips before they hit transcription. Spectral peak detection, constellation hashing, and alignment-offset matching. Full state-driven batch pipeline with crash recovery. Python, NumPy, SciPy, librosa.",
+    links: [
+      { label: "GitHub", href: "https://github.com/MLGalusha/SonicGen" },
+    ],
+  },
+  {
     name: "PianoTranscriber",
     tag: "ML / Deep Learning",
     description:
-      "CNN based pipeline that turns solo piano performances into MIDI and sheet music. Trained on the MAESTRO dataset (~200 hours, ~100GB preprocessed) using GCP GPU instances.",
+      "Trained a CNN from scratch in PyTorch to transcribe piano audio into MIDI. The MAESTRO dataset (200 hours of classical piano, about 100 GB preprocessed) was chunked into 130 files for out-of-core batching so training could stream through it without blowing GPU memory.",
     detail:
-      "PyTorch 2.5, Keras, TensorFlow. End to end: audio to spectrogram to CNN to MIDI to sheet music. UNC Chapel Hill AI bootcamp capstone.",
+      "Full pipeline from raw audio through spectrogram, CNN inference, piano roll, MIDI output, and sheet music generation via MuseScore. Built in a two-week sprint on GCP GPU VMs. UNC Chapel Hill AI Bootcamp capstone.",
     links: [
       { label: "GitHub", href: "https://github.com/MLGalusha/PianoTranscriber" },
     ],
@@ -29,31 +40,20 @@ const projects = [
     name: "JobTracker",
     tag: "Systems / Agent Orchestration",
     description:
-      "Event sourced, agent native system that turns a job search into a structured workflow with sourcing, tracking, and tailored application generation.",
+      "Built a structured pipeline that scans target company career pages, classifies roles by lane, and generates tailored application packages (resume, cover letter, company research, study guide) using profile docs as a single source of truth. Ran 10 agents in parallel to produce 36 application packages simultaneously, each following the same voice rules for consistent output.",
     detail:
-      "Append only JSONL pipeline, parallel agent orchestration (10 agents, 36 application packages simultaneously), modular Claude Code skills.",
+      "Designed as a real data pipeline: append-only JSONL queue with dedup by URL, modular skills with defined input/output contracts, and Markdown templates that enforce tone and structure. Claude Code skills system.",
     links: [
       { label: "GitHub", href: "https://github.com/MLGalusha/job-tracker" },
-    ],
-  },
-  {
-    name: "SonicGen",
-    tag: "Audio DSP / Hand Written",
-    description:
-      "Shazam style audio fingerprinting engine for duplicate detection and source matching. Written entirely by hand, no coding agents.",
-    detail:
-      "Constellation hash peak detection on log power spectrograms. Alignment offset matching. Built to learn fundamentals from scratch.",
-    links: [
-      { label: "GitHub", href: "https://github.com/MLGalusha/SonicGen" },
     ],
   },
   {
     name: "Staffclaw",
     tag: "Full Stack / Reverse Engineering",
     description:
-      "Drop in replacement for employer scheduling software, built on 92 reverse engineered API endpoints mapped in a single agent session.",
+      "Used agents to scrape every API endpoint from my employer's scheduling app and the Alamo Drafthouse public ticketing site, then built a cron job that sent a structured summary of my shift to Discord an hour before work. When the scrape turned up the full management endpoints, I realized I could build a replacement for the app itself.",
     detail:
-      "Transparent proxy architecture with zero migration cost. Dashboard with Gantt view, multi source data fusion, demand prediction. Express 5 + React 19 + Drizzle + Postgres.",
+      "Transparent proxy over the original backend — users log in with existing credentials, every read and write goes through the real API. Zero migration cost. Started building a schedule generation engine with demand prediction based on sold-out screenings, weather, and local events. Express, React, Drizzle, Postgres.",
     links: [
       { label: "GitHub", href: "https://github.com/MLGalusha/staffclaw" },
     ],
@@ -67,29 +67,29 @@ const skills = [
   },
   {
     category: "Frontend",
-    items: ["React 19", "Vite", "React Router", "Playwright"],
+    items: ["React 19", "Vite", "React Router", "TipTap", "Playwright E2E testing", "Vitest"],
   },
   {
     category: "Backend",
-    items: ["Node.js", "Express", "Drizzle ORM", "PostgreSQL"],
+    items: ["Node.js", "Express", "Drizzle ORM", "PostgreSQL", "Pino logging", "Session auth", "REST API design"],
   },
   {
     category: "AI / ML",
     items: [
-      "OpenAI API",
-      "PyTorch",
-      "Structured Outputs",
-      "Vision Prompting",
-      "Audio ML Pipelines",
+      "OpenAI API (structured outputs, tool calling, vision)",
+      "Vector search (Pinecone)",
+      "Speaker identification (SpeechBrain)",
+      "PyTorch (CNN training)",
+      "Prompt engineering",
     ],
   },
   {
     category: "Infrastructure",
-    items: ["Google Cloud Platform", "Cloud Run", "Cloud SQL", "Docker", "CI/CD"],
+    items: ["Google Cloud Platform", "Cloud Run", "Cloud SQL", "Cloud Build CI/CD", "Cloud Storage"],
   },
   {
     category: "Tools",
-    items: ["Claude Code", "Codex", "Git/GitHub", "Docker"],
+    items: ["Claude Code", "Codex", "Cursor", "Git/GitHub"],
   },
 ];
 
@@ -191,12 +191,12 @@ function App() {
               <span className="hero-accent">building with AI</span>
             </h1>
             <p className="hero-bio">
-              Self taught engineer who ships production software with real AI
-              pipelines. I build systems to solve problems I actually
-              experience: a live historical archive with AI transcription, a
-              deep learning piano transcription model, an event sourced job
-              tracking system with agent orchestration, and tools built on
-              reverse engineered APIs. Based in Raleigh, NC.
+              Full stack developer who ships complete systems end to end. I've
+              built a production digital archive with a multi-stage AI pipeline,
+              an audio fingerprinting and speaker identification system, a
+              PyTorch CNN for piano transcription, and a transparent proxy that
+              replaced my employer's scheduling app. I build primarily by
+              directing coding agents, with a year of manual coding underneath.
             </p>
             <div className="hero-cta">
               <a href="https://voicesthatremain.com" target="_blank" rel="noreferrer" className="btn-primary">
