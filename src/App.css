@@ -15,8 +15,7 @@
   justify-content: space-between;
   padding: 1rem 0;
   border-bottom: 1px solid var(--border);
-  background: rgba(10, 10, 10, 0.85);
-  backdrop-filter: blur(12px);
+  background: var(--bg-primary);
 }
 
 .logo {
@@ -42,7 +41,10 @@
 }
 
 .nav a.active {
-  color: var(--text-primary);
+  color: #ffffff;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1.5px;
 }
 
 .header-links {
