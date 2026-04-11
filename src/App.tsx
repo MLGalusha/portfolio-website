@@ -104,19 +104,30 @@ function App() {
   const [activeSection, setActiveSection] = useState("");
 
   useEffect(() => {
-    const sections = document.querySelectorAll(".section");
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
+    function onScroll() {
+      const sections = document.querySelectorAll(".section");
+      const scrollY = window.scrollY;
+      const offset = 100;
+
+      // At bottom of page → activate last section
+      if (window.innerHeight + scrollY >= document.documentElement.scrollHeight - 50) {
+        const last = sections[sections.length - 1];
+        if (last) { setActiveSection(last.id); return; }
+      }
+
+      let current = "";
+      for (const section of sections) {
+        const el = section as HTMLElement;
+        if (scrollY >= el.offsetTop - offset) {
+          current = el.id;
         }
-      },
-      { rootMargin: "-20% 0px -70% 0px" }
-    );
-    sections.forEach((s) => observer.observe(s));
-    return () => observer.disconnect();
+      }
+      setActiveSection(current);
+    }
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   function copyEmail() {
