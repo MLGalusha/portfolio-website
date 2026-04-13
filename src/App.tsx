@@ -102,6 +102,7 @@ function App() {
   const [formStatus, setFormStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [emailCopied, setEmailCopied] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const [resumeOpen, setResumeOpen] = useState(false);
 
   useEffect(() => {
     function onScroll() {
@@ -202,9 +203,15 @@ function App() {
               <a href="https://voicesthatremain.com" target="_blank" rel="noreferrer" className="btn-primary">
                 View Flagship Project
               </a>
-              <a href="#projects" className="btn-secondary">
-                See Work
-              </a>
+              <button type="button" className="btn-secondary" onClick={() => {
+                if (window.innerWidth <= 768) {
+                  window.open("/Mason_Galusha_Fullstack_Resume.pdf", "_blank");
+                } else {
+                  setResumeOpen(true);
+                }
+              }}>
+                View Resume
+              </button>
             </div>
           </div>
           <div className="hero-aside">
@@ -424,6 +431,35 @@ function App() {
           </form>
         </div>
       </section>
+
+      {/* Resume Modal */}
+      {resumeOpen && (
+        <div className="resume-overlay" onClick={() => setResumeOpen(false)}>
+          <div className="resume-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="resume-modal-header">
+              <span className="resume-modal-title">Resume</span>
+              <div className="resume-modal-actions">
+                <a
+                  href="/Mason_Galusha_Fullstack_Resume.pdf"
+                  download
+                  className="resume-download-btn"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  Download
+                </a>
+                <button className="resume-close-btn" onClick={() => setResumeOpen(false)} aria-label="Close resume">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+              </div>
+            </div>
+            <iframe
+              src="/Mason_Galusha_Fullstack_Resume.pdf"
+              className="resume-iframe"
+              title="Mason Galusha Resume"
+            />
+          </div>
+        </div>
+      )}
 
       {/* Footer */}
       <footer className="footer">
