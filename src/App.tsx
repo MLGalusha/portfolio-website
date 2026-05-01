@@ -11,7 +11,7 @@ const projects = [
       "Multi-stage AI pipeline on the OpenAI API: GPT-5.4 Vision transcription, structured metadata extraction with Zod validation, entity resolution via tool calling, and cost-tiered model selection. Human verification gate between stages. React 19, Express 5, 20 Postgres tables (Drizzle ORM), 46 Playwright E2E tests, Cloud Build CI/CD. Deployed on GCP Cloud Run.",
     links: [
       { label: "Live Site", href: "https://voicesthatremain.com" },
-      { label: "GitHub", href: "https://github.com/MLGalusha/VoicesThatRemain" },
+      { label: "GitHub", href: "https://github.com/MLGalusha/letter-archive" },
     ],
   },
   {
