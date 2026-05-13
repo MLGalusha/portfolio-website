@@ -15,6 +15,17 @@ const projects = [
     ],
   },
   {
+    name: "Second Braincell",
+    tag: "Agent Tooling / CLI",
+    description:
+      "Local bridge that lets Codex talk to ChatGPT from the terminal and read results back from local files. Built for workflows where useful context already lives in ChatGPT conversations, PDFs, Deep Research, or model responses, but the implementation work needs to happen inside a repo.",
+    detail:
+      "Node.js CLI around browser-observed ChatGPT web endpoints from the user's signed-in session. Supports threaded conversations, chat search/resume/export, file and PDF retrieval, image generation, Deep Research jobs, model capability checks, Project instruction updates, local job artifacts, and a globally installed Codex skill plus sbc command.",
+    links: [
+      { label: "GitHub", href: "https://github.com/MLGalusha/second-braincell" },
+    ],
+  },
+  {
     name: "SonicGen",
     tag: "Audio DSP / Hand Written",
     description:
@@ -228,7 +239,7 @@ function App() {
                 <span className="stat-label">Shipped product</span>
               </div>
               <div className="stat">
-                <span className="stat-value">5</span>
+                <span className="stat-value">6</span>
                 <span className="stat-label">Portfolio projects</span>
               </div>
             </div>

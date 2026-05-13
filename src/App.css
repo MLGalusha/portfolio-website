@@ -253,10 +253,6 @@
   background: var(--bg-card-hover);
 }
 
-.project-card:first-child {
-  grid-column: 1 / -1;
-}
-
 .project-card-header {
   margin-bottom: 1rem;
 }
@@ -692,10 +688,6 @@
 
   .projects-grid {
     grid-template-columns: 1fr;
-  }
-
-  .project-card:first-child {
-    grid-column: auto;
   }
 
   .skills-grid {
