@@ -1,0 +1,24 @@
+{
+  "rewrites": [
+    {
+      "source": "/specfinder/api/:path*",
+      "destination": "https://specfinder-api-pt4d3xglpa-ue.a.run.app/specfinder/api/:path*"
+    },
+    {
+      "source": "/specfinder/static/:path*",
+      "destination": "https://specfinder-api-pt4d3xglpa-ue.a.run.app/specfinder/static/:path*"
+    },
+    {
+      "source": "/specfinder/app",
+      "destination": "https://specfinder-api-pt4d3xglpa-ue.a.run.app/specfinder"
+    },
+    {
+      "source": "/specfinder/app/:path*",
+      "destination": "https://specfinder-api-pt4d3xglpa-ue.a.run.app/specfinder/:path*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

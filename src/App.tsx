@@ -3,6 +3,18 @@ import "./App.css";
 
 const projects = [
   {
+    name: "SpecFinder",
+    tag: "Hosted AI Demo",
+    description:
+      "Interactive technical PDF search and cited-answer tool for large construction specification manuals and dense reference documents. Ask a question, inspect the retrieved evidence, jump to cited pages, and see whether the answer came from cache or an API call.",
+    detail:
+      "Python stdlib server, React-style static UI, lexical/vector retrieval over prebuilt PDF indexes, OpenAI answer generation with usage metadata, Cloud Run deployment, Cloud Storage mounted assets, and a production path designed for durable cache and quota enforcement.",
+    links: [
+      { label: "Live Demo", href: "/specfinder" },
+      { label: "GitHub", href: "https://github.com/MLGalusha/technical-pdf-search" },
+    ],
+  },
+  {
     name: "Voices That Remain",
     tag: "Shipped Product",
     description:
@@ -168,6 +180,33 @@ function App() {
       setFormStatus("error");
     }
   }
+
+  if (window.location.pathname === "/specfinder") {
+    const isLocalhost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+    const specFinderFrameSrc = isLocalhost
+      ? "https://specfinder-api-pt4d3xglpa-ue.a.run.app/specfinder"
+      : "/specfinder/app";
+
+    return (
+      <div className="specfinder-page">
+        <header className="specfinder-shell-header">
+          <a href="/" className="logo">Mason Galusha</a>
+          <div className="specfinder-shell-actions">
+            <a href="/#projects" className="project-link">Projects</a>
+            <a href={specFinderFrameSrc} className="project-link project-link-live">Open Demo</a>
+          </div>
+        </header>
+        <main className="specfinder-frame-wrap">
+          <iframe
+            className="specfinder-frame"
+            src={specFinderFrameSrc}
+            title="SpecFinder interactive demo"
+          />
+        </main>
+      </div>
+    );
+  }
+
   return (
     <div className="site">
       {/* Header */}
@@ -239,7 +278,7 @@ function App() {
                 <span className="stat-label">Shipped product</span>
               </div>
               <div className="stat">
-                <span className="stat-value">6</span>
+                <span className="stat-value">7</span>
                 <span className="stat-label">Portfolio projects</span>
               </div>
             </div>
