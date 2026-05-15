@@ -161,6 +161,7 @@ function App() {
   const [emailCopied, setEmailCopied] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const [resumeOpen, setResumeOpen] = useState(false);
+  const [specFinderLoading, setSpecFinderLoading] = useState(true);
 
   useEffect(() => {
     function onScroll() {
@@ -228,10 +229,17 @@ function App() {
           <PortfolioHeader sectionPrefix="/" />
         </div>
         <main className="specfinder-frame-wrap">
+          {specFinderLoading && (
+            <div className="specfinder-loading" role="status" aria-live="polite">
+              <div className="specfinder-loading-spinner" aria-hidden="true" />
+              <p>Preparing demo</p>
+            </div>
+          )}
           <iframe
             className="specfinder-frame"
             src={specFinderFrameSrc}
             title="SpecFinder interactive demo"
+            onLoad={() => setSpecFinderLoading(false)}
           />
         </main>
       </div>
