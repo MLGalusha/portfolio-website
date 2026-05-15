@@ -338,27 +338,17 @@
 
 /* ── SpecFinder Hosted Demo ── */
 .specfinder-page {
+  height: 100vh;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   background: var(--bg-primary);
+  overflow: hidden;
 }
 
-.specfinder-shell-header {
-  height: 56px;
+.specfinder-header-shell {
+  width: 100%;
   flex: 0 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 1rem;
-  border-bottom: 1px solid var(--border);
-  background: var(--bg-primary);
-}
-
-.specfinder-shell-actions {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
 }
 
 .specfinder-frame-wrap {
@@ -368,7 +358,7 @@
 
 .specfinder-frame {
   width: 100%;
-  height: calc(100vh - 56px);
+  height: 100%;
   display: block;
   border: 0;
   background: #101010;
