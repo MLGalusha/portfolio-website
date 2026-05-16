@@ -248,6 +248,10 @@
   flex-direction: column;
 }
 
+.project-card-featured {
+  grid-column: 1 / -1;
+}
+
 .project-card:hover {
   border-color: var(--border-hover);
   background: var(--bg-card-hover);

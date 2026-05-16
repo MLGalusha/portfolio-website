@@ -4,46 +4,43 @@ import "./App.css";
 const projects = [
   {
     name: "SpecFinder",
-    tag: "Hosted AI Demo",
+    tag: "Document RAG / Hosted Demo",
+    featured: true,
     description:
-      "Interactive technical PDF search and cited-answer tool for large construction specification manuals and dense reference documents. Ask a question, inspect the retrieved evidence, jump to cited pages, and see whether the answer came from cache or an API call.",
+      "Construction PDF search and cited-answer tool for long technical documents where exact evidence matters. Ask a question, inspect the retrieved evidence, jump to cited pages, and see how the answer was grounded.",
     detail:
-      "Python stdlib server, React-style static UI, lexical/vector retrieval over prebuilt PDF indexes, OpenAI answer generation with usage metadata, Cloud Run deployment, Cloud Storage mounted assets, and a production path designed for durable cache and quota enforcement.",
+      "Built around section and page aware chunking, lexical/vector/hybrid retrieval, routed query planning, table aware context packing, abstention behavior, and citation quality checks. Hosted as a live demo through Cloud Run and masongalusha.com.",
     links: [
       { label: "Live Demo", href: "/specfinder" },
-      { label: "GitHub", href: "https://github.com/MLGalusha/technical-pdf-search" },
     ],
   },
   {
     name: "Voices That Remain",
     tag: "Shipped Product",
     description:
-      "A production digital archive for historical family letters. Public archive with search, filtering, entity pages, and SEO. 14-page admin system with pipeline processing controls, letter review editor, cost and usage dashboard, notification inbox with real-time SSE, content editor, and collection management. Built to grow continuously as new letters are scanned.",
+      "Public historical letter archive built to make scanned family letters searchable, readable, and publishable as the collection grows. The public site handles browsing, search, collections, people, places, and letter pages.",
     detail:
-      "Multi-stage AI pipeline on the OpenAI API: GPT-5.4 Vision transcription, structured metadata extraction with Zod validation, entity resolution via tool calling, and cost-tiered model selection. Human verification gate between stages. React 19, Express 5, 20 Postgres tables (Drizzle ORM), 46 Playwright E2E tests, Cloud Build CI/CD. Deployed on GCP Cloud Run.",
+      "The admin side includes upload, review, transcription, structured metadata extraction, entity resolution, usage tracking, notifications, and content tools. AI handles the slow parts, but a human verifies each step before anything goes public. Deployed on GCP.",
     links: [
       { label: "Live Site", href: "https://voicesthatremain.com" },
-      { label: "GitHub", href: "https://github.com/MLGalusha/letter-archive" },
     ],
   },
   {
     name: "Second Braincell",
     tag: "Agent Tooling / CLI",
     description:
-      "Local bridge that lets Codex talk to ChatGPT from the terminal and read results back from local files. Built for workflows where useful context already lives in ChatGPT conversations, PDFs, Deep Research, or model responses, but the implementation work needs to happen inside a repo.",
+      "Private local Node.js CLI that gives coding agents direct access to ChatGPT for document review, multi turn reasoning, file/PDF retrieval, image generation, and Deep Research jobs.",
     detail:
-      "Node.js CLI around browser-observed ChatGPT web endpoints from the user's signed-in session. Supports threaded conversations, chat search/resume/export, file and PDF retrieval, image generation, Deep Research jobs, model capability checks, Project instruction updates, local job artifacts, and a globally installed Codex skill plus sbc command.",
-    links: [
-      { label: "GitHub", href: "https://github.com/MLGalusha/second-braincell" },
-    ],
+      "Replaces browser automation heavy workflows with direct request/response paths, local job artifacts, model fallback logic, Project instruction management, and auth/session security checks. Built for agent workflows where the implementation happens in a repo but useful context lives in ChatGPT.",
+    links: [],
   },
   {
     name: "SonicGen",
     tag: "Audio DSP / Hand Written",
     description:
-      "Audio ingestion and speaker identification pipeline. Point it at a YouTube channel and it pulls every video, downloads the audio, transcribes with speaker diarization (AssemblyAI), and lets you label who's speaking in seconds. Once labeled, voice embeddings (SpeechBrain ECAPA) get stored in Pinecone so the system automatically identifies those speakers in future videos. Written entirely by hand, no coding agents.",
+      "Audio ingestion and dedup pipeline written by hand in Python before I started using coding agents as daily tools. Built to trace clips back to their source and avoid wasting transcription work on duplicates.",
     detail:
-      "Built a Shazam-style fingerprint dedup engine to catch duplicate clips before they hit transcription. Spectral peak detection, constellation hashing, and alignment-offset matching. Full state-driven batch pipeline with crash recovery. Python, NumPy, SciPy, librosa.",
+      "The core matcher uses spectral peak detection, constellation hashing, and alignment offset matching instead of semantic similarity. The larger pipeline pulls YouTube audio, transcribes with speaker diarization, labels speakers, and stores voice embeddings for future identification.",
     links: [
       { label: "GitHub", href: "https://github.com/MLGalusha/SonicGen" },
     ],
@@ -52,9 +49,9 @@ const projects = [
     name: "PianoTranscriber",
     tag: "ML / Deep Learning",
     description:
-      "Trained a CNN from scratch in PyTorch to transcribe piano audio into MIDI. The MAESTRO dataset (200 hours of classical piano, about 100 GB preprocessed) was chunked into 130 files for out-of-core batching so training could stream through it without blowing GPU memory.",
+      "PyTorch model that transcribes piano audio into MIDI. Built for the UNC Chapel Hill AI Bootcamp final project using the MAESTRO dataset and GCP GPU VMs.",
     detail:
-      "Full pipeline from raw audio through spectrogram, CNN inference, piano roll, MIDI output, and sheet music generation via MuseScore. Built in a two-week sprint on GCP GPU VMs. UNC Chapel Hill AI Bootcamp capstone.",
+      "Audio goes through spectrogram preprocessing, CNN inference, piano roll generation, MIDI output, and sheet music rendering. The project taught me the full training loop: dataset prep, batching, model training, inference, and evaluation.",
     links: [
       { label: "GitHub", href: "https://github.com/MLGalusha/PianoTranscriber" },
     ],
@@ -63,9 +60,9 @@ const projects = [
     name: "JobTracker",
     tag: "Systems / Agent Orchestration",
     description:
-      "Built a structured pipeline that scans target company career pages, classifies roles by lane, and generates tailored application packages (resume, cover letter, company research, study guide) using profile docs as a single source of truth. Ran 10 agents in parallel to produce 36 application packages simultaneously, each following the same voice rules for consistent output.",
+      "Agent native job search pipeline that turns profile docs, role intake, company research, resume tailoring, cover letters, and interview prep into a repeatable workflow.",
     detail:
-      "Designed as a real data pipeline: append-only JSONL queue with dedup by URL, modular skills with defined input/output contracts, and Markdown templates that enforce tone and structure. Claude Code skills system.",
+      "Built around source of truth profile files, role queues, modular skills, templates, and agent orchestration. It is the system I use to make applications consistent instead of rewriting everything from scratch.",
     links: [
       { label: "GitHub", href: "https://github.com/MLGalusha/job-tracker" },
     ],
@@ -74,9 +71,9 @@ const projects = [
     name: "Staffclaw",
     tag: "Full Stack / Reverse Engineering",
     description:
-      "Used agents to scrape every API endpoint from my employer's scheduling app and the Alamo Drafthouse public ticketing site, then built a cron job that sent a structured summary of my shift to Discord an hour before work. When the scrape turned up the full management endpoints, I realized I could build a replacement for the app itself.",
+      "Full stack scheduling and operations dashboard built from a reverse engineered workplace scheduling API. Started as a daily shift briefing tool and turned into a replacement interface for the app itself.",
     detail:
-      "Transparent proxy over the original backend — users log in with existing credentials, every read and write goes through the real API. Zero migration cost. Started building a schedule generation engine with demand prediction based on sold-out screenings, weather, and local events. Express, React, Drizzle, Postgres.",
+      "Mapped undocumented endpoints, pulled schedule and ticketing data, and built a transparent proxy so users could log in with existing credentials while every read and write still went through the real backend. Express, React, Drizzle, Postgres.",
     links: [
       { label: "GitHub", href: "https://github.com/MLGalusha/staffclaw" },
     ],
@@ -257,24 +254,24 @@ function App() {
           <div className="hero-text">
             <p className="hero-greeting">Hi, I'm Mason Galusha</p>
             <h1>
-              Software Engineer<br />
+              Applied AI Engineer<br />
               <span className="hero-accent">building with AI</span>
             </h1>
             <p className="hero-bio">
-              Full stack developer who ships complete systems end to end. I've
-              built a production digital archive with a multi-stage AI pipeline,
-              an audio fingerprinting and speaker identification system, a
-              PyTorch CNN for piano transcription, and a transparent proxy that
-              replaced my employer's scheduling app. I build primarily by
-              directing coding agents, with a year of manual coding underneath.
+              I build products around LLMs, retrieval, structured extraction,
+              and coding agents. My recent work includes SpecFinder, a cited
+              RAG tool for long construction PDFs; Voices That Remain, a
+              public historical letter archive with an AI pipeline inside it;
+              and Second Braincell, a private local tool that lets coding agents
+              use ChatGPT for document review and long running AI jobs.
             </p>
             <div className="hero-cta">
-              <a href="https://voicesthatremain.com" target="_blank" rel="noreferrer" className="btn-primary">
-                View Flagship Project
+              <a href="/specfinder" className="btn-primary">
+                Try SpecFinder
               </a>
               <button type="button" className="btn-secondary" onClick={() => {
                 if (window.innerWidth <= 768) {
-                  window.open("/Mason_Galusha_Fullstack_Resume.pdf", "_blank");
+                  window.open("/Mason_Galusha_Applied_AI_Resume.pdf", "_blank");
                 } else {
                   setResumeOpen(true);
                 }
@@ -293,8 +290,8 @@ function App() {
                 <span className="stat-label"><span className="stat-label-desktop">Based / </span>Open to remote</span>
               </div>
               <div className="stat">
-                <span className="stat-value">1</span>
-                <span className="stat-label">Shipped product</span>
+                <span className="stat-value">AI</span>
+                <span className="stat-label">Applied systems</span>
               </div>
               <div className="stat">
                 <span className="stat-value">7</span>
@@ -315,27 +312,29 @@ function App() {
         </div>
         <div className="projects-grid">
           {projects.map((project) => (
-            <article className="project-card" key={project.name}>
+            <article className={`project-card${project.featured ? " project-card-featured" : ""}`} key={project.name}>
               <div className="project-card-header">
                 <span className="project-tag">{project.tag}</span>
               </div>
               <h3>{project.name}</h3>
               <p className="project-desc">{project.description}</p>
               <p className="project-detail">{project.detail}</p>
-              <div className="project-links">
-                {project.links.map((link) => (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className={`project-link${link.label === "Live Site" ? " project-link-live" : ""}`}
-                  >
-                    {link.label}
-                    <span className="arrow">&#8599;</span>
-                  </a>
-                ))}
-              </div>
+              {project.links.length > 0 && (
+                <div className="project-links">
+                  {project.links.map((link) => (
+                    <a
+                      key={link.label}
+                      href={link.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className={`project-link${link.label === "Live Site" || link.label === "Live Demo" ? " project-link-live" : ""}`}
+                    >
+                      {link.label}
+                      <span className="arrow">&#8599;</span>
+                    </a>
+                  ))}
+                </div>
+              )}
             </article>
           ))}
         </div>
@@ -371,16 +370,19 @@ function App() {
         <div className="about-layout">
           <div className="about-main">
             <p>
-              Started programming in late 2023 with Harvard's CS50, then
-              completed UNC Chapel Hill's 6 month AI bootcamp in 2024 where
-              I built PianoTranscriber. I spent 2025 coding by hand to build
-              real fundamentals, writing SonicGen from scratch without agents.
-              Now I use agent directed development daily, but I can review,
-              debug, and understand what the agents produce.
+              I started programming in late 2023 and spent 2025 coding by hand
+              to build real fundamentals. SonicGen was the turning point: a
+              Python audio fingerprinting engine I wrote without coding agents.
+              In 2026 I moved into agent directed development because I could
+              finally review and debug the output with enough judgment to trust
+              the workflow.
             </p>
             <p>
-              Every project in this portfolio started with a real problem I
-              wanted to solve. I think in systems, not disconnected features.
+              Most of what I build starts with a real workflow problem: finding
+              evidence in long PDFs, reviewing scanned letters, connecting a
+              coding agent to ChatGPT, or replacing a bad scheduling app. I care
+              about the system around the model: data, retrieval, evals, review
+              loops, deployment, and the UI someone actually uses.
             </p>
           </div>
           <div className="about-sidebar">
@@ -388,16 +390,17 @@ function App() {
 
               <h4>Looking For</h4>
               <p>
-                Full stack or applied AI roles at early stage startups and
-                AI native companies. Based in Raleigh, open to remote.
+                Applied AI, AI backend, RAG, agent tooling, and full stack roles
+                at AI native teams. Based in Raleigh, open to remote.
               </p>
             </div>
             <div className="about-card">
 
               <h4>Approach</h4>
               <p>
-                I design the architecture, make the technical decisions,
-                and use AI tools to accelerate what I already understand.
+                I design the architecture, make the technical decisions, and use
+                coding agents to accelerate implementation without handing off
+                judgment.
               </p>
             </div>
           </div>
@@ -411,8 +414,8 @@ function App() {
             <h2>Contact</h2>
             <p className="contact-blurb">
               Open to full stack and applied AI roles. Whether you're a
-              recruiter, hiring manager, or fellow engineer — I'd like to
-              hear from you.
+              recruiter, hiring manager, or fellow engineer, I'd like to hear
+              from you.
             </p>
             <div className="contact-direct">
               <div className="contact-direct-item">
@@ -509,7 +512,7 @@ function App() {
               <span className="resume-modal-title">Resume</span>
               <div className="resume-modal-actions">
                 <a
-                  href="/Mason_Galusha_Fullstack_Resume.pdf"
+                  href="/Mason_Galusha_Applied_AI_Resume.pdf"
                   download
                   className="resume-download-btn"
                 >
@@ -522,7 +525,7 @@ function App() {
               </div>
             </div>
             <iframe
-              src="/Mason_Galusha_Fullstack_Resume.pdf"
+              src="/Mason_Galusha_Applied_AI_Resume.pdf"
               className="resume-iframe"
               title="Mason Galusha Resume"
             />
